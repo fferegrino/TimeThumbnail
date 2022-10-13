@@ -1,0 +1,38 @@
+#main {
+	background-color: black;
+	width: 1920px;
+	height: 1920px;
+	zoom: 40%;
+}
+#header {
+	color: white;
+	font-size: 13em;
+	height: 260px;
+	background-color: black;
+	width: 1920px;
+	position: relative;
+	text-align: center;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#cover {
+	height: 1080px;
+	width: 1920px;
+}
+#thumbnail {
+	width: 1920px;
+	height: 1080px;
+}
+#footer {
+	padding: 20px;
+	color: white;
+	font-size: 6.7em;
+	height: calc(580px - 40px);
+	width: calc(1920px - 40px);
+	text-align: center;
+	background-color: black;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.time {
+	padding: 0px 50px;
+	margin: 0 50px;
+}

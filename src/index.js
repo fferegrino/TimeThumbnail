@@ -1,14 +1,130 @@
-import _ from 'lodash';
 import './style.css';
 
-function component() {
-    const element = document.createElement('div');
-  
-    // Lodash, now imported by this script
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    element.classList.add('hello');
-  
-    return element;
-  }
-  
-  document.body.appendChild(component());
+const date = document.getElementById('date')
+const time = document.getElementById('time')
+const hours = document.getElementById('hours')
+const dates = document.getElementById('dates')
+const timezone = document.getElementById('timezone')
+const footer = document.getElementById('footer')
+
+const {Settings, DateTime} =require("luxon")
+const html2canvas = require("html2canvas")
+
+Settings.defaultZone = "utc";
+
+date.addEventListener('change', function() {
+    calculateTz()
+});
+time.addEventListener('change', function() {
+    calculateTz()
+});
+timezone.addEventListener('change', function() {
+    calculateTz()
+});
+
+
+function generateImageDownload() {
+    html2canvas(document.getElementById("main"), {
+        allowTaint: true,
+        useCORS: true,
+      })
+      .then(function (canvas) {
+        // It will return a canvas element
+        let image = canvas.toDataURL("image/png", 0.5);
+        var bses64Image= "data:image/" + image; 
+        document.getElementById('download').setAttribute('href', bses64Image)
+      })
+      .catch((e) => {
+        // Handle errors
+        console.log(e);
+      });
+}
+
+const timezones = [
+    "🇲🇽:America/Mexico_City",
+    "🇨🇴:America/Bogota",
+    "🇨🇱:America/Santiago",
+    "🇪🇨:America/Guayaquil",
+    "🇻🇪:America/Caracas",
+    "🇧🇴:America/La_Paz",
+    "🇪🇸:Europe/Madrid",
+    "🇵🇪:America/Lima",
+    "🇵🇾:America/Asuncion",
+    "🇦🇷:America/Argentina/Buenos_Aires",
+    "🇬🇶:Africa/Malabo",
+    "🇨🇷:America/Costa_Rica",
+    "🇬🇧:Europe/London",
+]
+
+
+timezones.forEach(entry => {
+    const [flag, tz] = entry.split(':')
+    const newOption = document.createElement('option');
+    newOption.text = `${flag} ${tz}`;
+    newOption.value = tz;
+    timezone.options.add(newOption)
+})
+
+function calculateTz() {
+    let inputDate = DateTime.now();
+    if (time.value && date.value && timezone.value) {
+
+        const year = parseInt(date.value.slice(0, 4))
+        const month = parseInt(date.value.slice(5, 7))
+        const day = parseInt(date.value.slice(8, 10))
+        const hour = parseInt(time.value.slice(0, 2))
+        const minute = parseInt(time.value.slice(3, 5))
+
+
+        inputDate = DateTime.fromObject({
+            year: year,
+            month: month,
+            day: day,
+            hour: hour,
+            minute: minute
+        }, {
+            zone: timezone.value
+        })
+    }
+
+    const timesFlags = new Map()
+    timezones.forEach(entry => {
+        const [flag, tz] = entry.split(':')
+        const movedDate = inputDate.setZone(tz).setZone('utc', {
+            keepLocalTime: true
+        }).toMillis()
+        if (!timesFlags.has(movedDate)) {
+            timesFlags.set(movedDate, new Array())
+        }
+        timesFlags.get(movedDate).push(flag)
+    });
+    dates.textContent = inputDate.setLocale('es-MX').toLocaleString(DateTime.DATE_HUGE)
+    const sortedDates = Array.from(timesFlags.keys()).sort()
+    hours.innerHTML = ''
+
+    sortedDates.forEach(milliseconds => {
+        const tim = DateTime.fromMillis(milliseconds)
+        const shortTime = tim.setLocale('en-US').toLocaleString(DateTime.TIME_SIMPLE)
+        const flags = timesFlags.get(milliseconds)
+        const newText = document.createElement('span')
+        newText.className = 'time'
+        newText.innerHTML = `${shortTime}&nbsp;${flags.join('')}`.replace(' ', '&nbsp;')
+        hours.appendChild(newText)
+    });
+
+    generateImageDownload()
+}
+
+calculateTz()
+
+var file = document.getElementById('file'); // File refrence
+file.addEventListener('change', function() {
+
+    var thumbnail = document.getElementById('thumbnail'); // Image reference
+    var reader = new FileReader(); // Creating reader instance from FileReader() API
+    reader.addEventListener("load", function() { // Setting up base64 URL on image
+        thumbnail.src = reader.result;
+    }, false);
+    reader.readAsDataURL(file.files[0]); // Converting file into data URL
+    calculateTz()
+});

@@ -17,26 +17,25 @@ export default function App() {
     );
 
     return (
-            
-  <div>
-    <InputsForm updateSettings={updateSettings} updateImage={updateImage} />
- <div id="main">
-    <div id="header">
-       🔴 EN VIVO
-    </div>
-    <div id="cover">
-       <img id="thumbnail" src={image} />
-    </div>
-    <div id="footer">
-       <div id="dates">
+        <div>
+            <InputsForm updateSettings={updateSettings} updateImage={updateImage} />
+            <div id="main">
+                <div id="header">
+                    🔴 EN VIVO
+                </div>
+                <div id="cover">
+                    <img id="thumbnail" src={image} />
+                </div>
+                <div id="footer">
+                    <div id="dates">
 
-       </div>
-       <div id="hours">
+                    </div>
+                    <div id="hours">
 
-       </div>
-    </div>
- </div>
- <a download="image-name.png" id="download">download img</a>
-</div>
+                    </div>
+                </div>
+            </div>
+            <a download="image-name.png" id="download">download img</a>
+        </div>
     )
 }

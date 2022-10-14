@@ -2,9 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: { 
-    index:'./src/index.js',
-    timeHelpers:'./src/timeHelpers.js'
+  entry: {
+    index: './src/index.js',
+    timeHelpers: './src/timeHelpers.js'
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -43,7 +43,7 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
-      },    
+      },
       {
         test: /\.(csv|tsv)$/i,
         use: ['csv-loader'],

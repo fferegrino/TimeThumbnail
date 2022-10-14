@@ -1,5 +1,6 @@
 import './style.css';
 import {createRoot} from 'react-dom/client'
+import App from "./app.js"
 import {calculateTz, timezones} from './timeHelpers.js'
 
 // const date = document.getElementById('date')
@@ -44,42 +45,16 @@ import {calculateTz, timezones} from './timeHelpers.js'
 //         thumbnail.src = reader.result;
 //     }, false);
 //     reader.readAsDataURL(file.files[0]); // Converting file into data URL
-//     calculateTz(date.value, time.value, timezone.value, hours, dates)
 // });
 
 
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { StrictMode } from "react";
 
-const App = () => (
-    
-  <div>
-    <form>
-      <input type="date" id="date" />
-      <input type="time" id="time" />
-      <select id="timezone" name="timezone"></select>
-      <input type="file" id="file" />
-   </form>
-   <div id="main">
-      <div id="header">
-         🔴 EN VIVO
-      </div>
-      <div id="cover">
-         <img id="thumbnail" />
-      </div>
-      <div id="footer">
-         <div id="dates">
-
-         </div>
-         <div id="hours">
-
-         </div>
-      </div>
-   </div>
-   <a download="image-name.png" id="download">download img</a>
-  </div>
-)
 
 const container = document.getElementById('app')
 const root = createRoot(container)
-root.render(<App />)
+root.render(
+<StrictMode>
+    <App />
+  </StrictMode>)

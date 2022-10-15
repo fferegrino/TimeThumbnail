@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+const { DateTime } = require("luxon")
 import Timezones from './timezones.csv';
 
 export function InputsForm({ updateSettings, updateImage }) {
@@ -11,19 +12,29 @@ export function InputsForm({ updateSettings, updateImage }) {
         var file = e.target.files[0];
         var reader = new FileReader();
         reader.onload = function (event) {
-            // The file's text will be printed here
             updateImage(event.target.result);
         };
-
         reader.readAsDataURL(file);
-
     };
     useEffect(() => {
         if (date && time && timezone) {
-            updateSettings(date, time, timezone);
-        }
-        else {
-            console.log(`${date}, ${time}, ${timezone}`);
+            const year = parseInt(date.slice(0, 4))
+            const month = parseInt(date.slice(5, 7))
+            const day = parseInt(date.slice(8, 10))
+            const hour = parseInt(time.slice(0, 2))
+            const minute = parseInt(time.slice(3, 5))
+            const inputDate = DateTime.fromObject({
+                year: year,
+                month: month,
+                day: day,
+                hour: hour,
+                minute: minute
+            },
+                {
+                    zone: timezone
+                }
+            )
+            updateSettings(inputDate);
         }
     }, [time, date, timezone]);
     const dateChange = event => {
@@ -36,15 +47,15 @@ export function InputsForm({ updateSettings, updateImage }) {
         setTimezone(event.target.value);
     };
 
-
+    const timezoneOptions = Timezones.map(function (value, idx) {
+        return <option key={value} value={value[1]}>{value[0]} {value[1]}</option>
+    });
     return (
         <form>
             <input type="date" id="date" value={date} onChange={dateChange} />
             <input type="time" id="time" value={time} onChange={timeChange} />
             <select id="timezone" name="timezone" value={timezone} onChange={timezoneChange}>
-                {Timezones.map(function (value, idx) {
-                    return <option key={value} value={value[1]}>{value[0]} {value[1]}</option>
-                })}
+                {timezoneOptions}
             </select>
             <input type="file" id="file" value={image} onChange={loadImage} />
         </form>

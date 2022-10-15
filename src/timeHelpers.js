@@ -21,40 +21,21 @@ function generateImageDownload() {
 }
 
 
-export function calculateTz(date, time, timezone) {
-  let inputDate = DateTime.now();
-  if (time && date && timezone) {
-
-    const year = parseInt(date.slice(0, 4))
-    const month = parseInt(date.slice(5, 7))
-    const day = parseInt(date.slice(8, 10))
-    const hour = parseInt(time.slice(0, 2))
-    const minute = parseInt(time.slice(3, 5))
-
-
-    inputDate = DateTime.fromObject({
-      year: year,
-      month: month,
-      day: day,
-      hour: hour,
-      minute: minute
-    },
-      // {
-      //     zone: timezone
-      // }
-    )
-  }
+export function calculateTz(inputDate) {
   console.log(inputDate)
   const timesFlags = new Map()
-  Timezones.forEach((flag, tz) => {
+  Timezones.forEach((item, idx) => {
+    const [flag, tz] = item
     const movedDate = inputDate.setZone(tz).setZone('utc', {
       keepLocalTime: true
     }).toMillis()
     if (!timesFlags.has(movedDate)) {
       timesFlags.set(movedDate, new Array())
     }
+    console.log(`${tz} ${movedDate}`)
     timesFlags.get(movedDate).push(flag)
   });
+
   const sortedDates = Array.from(timesFlags.keys()).sort().map(date => {
     return {
       flags: timesFlags.get(date),

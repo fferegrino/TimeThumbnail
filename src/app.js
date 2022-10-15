@@ -2,15 +2,16 @@ import "./style.css"
 import React, { useState } from 'react'
 import { InputsForm } from "./InputsForm"
 import { calculateTz } from "./timeHelpers"
-import Timezones from './timezones.csv';
+import { TimesPanel } from "./TimesPanel"
+
 
 export default function App() {
 
     const [image, setImage] = useState('')
-    const updateSettings = (date, time, timezone) => {
-        const sorted = calculateTz(date, time, timezone)
-        console.log(sorted)
-        console.log(Timezones)
+    const [data, setData] = useState(new Array());
+    const updateSettings = (inputDate) => {
+        const sortedTimes = calculateTz(inputDate);
+        setData(sortedTimes)
     }
     const updateImage = (image) => (
         setImage(image)
@@ -30,9 +31,7 @@ export default function App() {
                     <div id="dates">
 
                     </div>
-                    <div id="hours">
-
-                    </div>
+                    <TimesPanel data={data} />
                 </div>
             </div>
             <a download="image-name.png" id="download">download img</a>

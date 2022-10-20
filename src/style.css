@@ -1,9 +1,76 @@
+:root {
+	--percentage: 0.4;
+	--width: 1920px;
+	--main-width: 1200px;
+}
+
+#content {
+	padding: 0;
+	margin: 0;
+	width: calc(var(--main-width)-100px);
+}
+
+#control-panel {
+	vertical-align: top;
+	display: inline-block;
+	height: calc(var(--width) * var(--percentage));
+	background-color: gray;
+	width: calc(var(--main-width) - (var(--width) * var(--percentage)));
+}
+
+form {
+	padding: 20px;
+}
+
+input,
+select {
+	display: block;
+	width: calc(100%);
+	padding: 10px;
+	margin: 10px 0px;
+	border: 0px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.custom-file-upload {
+	background-color: white;
+	display: block;
+	width: calc(100% - 20px);
+	padding: 10px;
+	cursor: pointer;
+}
+
+a.button {
+	color: black;
+	background-color: #cecece;
+	display: block;
+	width: calc(100% - 60px);
+	border-radius: 5px;
+	padding: 10px;
+	text-align: center;
+	margin: 10px 20px;
+}
+
+input[type="file"] {
+	display: none;
+}
+
+#results {
+	display: inline-block;
+	background-color: red;
+	width: calc(var(--width) * var(--percentage));
+}
+
+
 #main {
 	background-color: black;
 	width: 1920px;
 	height: 1920px;
 	zoom: 40%;
 }
+
 #header {
 	color: white;
 	font-size: 13em;
@@ -14,14 +81,17 @@
 	text-align: center;
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
 #cover {
 	height: 1080px;
 	width: 1920px;
 }
+
 #thumbnail {
 	width: 1920px;
 	height: 1080px;
 }
+
 #footer {
 	padding: 20px;
 	color: white;
@@ -32,6 +102,7 @@
 	background-color: black;
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
 .time {
 	padding: 0px 50px;
 	margin: 0 50px;

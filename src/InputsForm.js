@@ -57,7 +57,10 @@ export function InputsForm({ updateSettings, updateImage }) {
             <select id="timezone" name="timezone" value={timezone} onChange={timezoneChange}>
                 {timezoneOptions}
             </select>
-            <input type="file" id="file" value={image} onChange={loadImage} />
+            <label class="custom-file-upload">
+                <input type="file" id="file" value={image} onChange={loadImage} />
+                Select thumbnail
+            </label>
         </form>
     );
 }

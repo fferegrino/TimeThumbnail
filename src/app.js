@@ -38,23 +38,28 @@ export default function App() {
     }, [image, data])
 
     return (
-        <div>
-            <InputsForm updateSettings={updateSettings} updateImage={updateImage} />
-            <div id="main">
-                <div id="header">
-                    🔴 EN VIVO
-                </div>
-                <div id="cover">
-                    <img id="thumbnail" src={image} />
-                </div>
-                <div id="footer">
-                    <div id="dates">
-
-                    </div>
-                    <TimesPanel data={data} />
-                </div>
+        <div id="content">
+            <div id="control-panel">
+                <InputsForm updateSettings={updateSettings} updateImage={updateImage} />
+                <DownloadButton thumbnail={thumbnail} />
             </div>
-            <DownloadButton thumbnail={thumbnail} />
+            <div id="results">
+                <div id="main">
+                    <div id="header">
+                        🔴 EN VIVO
+                    </div>
+                    <div id="cover">
+                        <img id="thumbnail" src={image} />
+                    </div>
+                    <div id="footer">
+                        <div id="dates">
+
+                        </div>
+                        <TimesPanel data={data} />
+                    </div>
+                </div>
+
+            </div>
         </div>
     )
 }

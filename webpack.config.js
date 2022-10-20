@@ -2,9 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: { 
-    index:'./src/index.js',
-    timeHelpers:'./src/timeHelpers.js'
+  entry: {
+    index: './src/index.js',
+    timeHelpers: './src/timeHelpers.js'
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -32,6 +32,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      },
+      {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
@@ -40,11 +45,17 @@ module.exports = {
         type: 'asset/resource',
       },
       {
+        test: /\.(csv|tsv)$/i,
+        use: ['csv-loader'],
+      },
+      {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
       },
     ],
   },
+
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+  },
 };
-
-

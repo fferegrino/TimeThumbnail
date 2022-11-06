@@ -5,7 +5,7 @@ import Timezones from './timezones.csv';
 export function InputsForm({ updateSettings, updateImage }) {
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
-    const [timezone, setTimezone] = useState('');
+    const [timezone, setTimezone] = useState('America/Mexico_City');
     const [image, setImage] = useState('');
 
     const loadImage = (e) => {
@@ -58,7 +58,7 @@ export function InputsForm({ updateSettings, updateImage }) {
                 {timezoneOptions}
             </select>
             <label class="custom-file-upload">
-                <input type="file" id="file" value={image} onChange={loadImage} />
+                <input type="file" id="file" accept="image/x-png,image/jpeg" value={image} onChange={loadImage} />
                 Select thumbnail
             </label>
         </form>

@@ -1,22 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
 :root {
 	--percentage: 0.4;
 	--width: 1920px;
 	--main-width: 1200px;
 }
 
-#content {
-	padding: 0;
-	margin: 0;
-	width: calc(var(--main-width)-100px);
+html, body { height: 100%; margin: 0; padding: 0; }
+
+#app {
+	height: 100%;
+	min-height: 100vh;
 }
 
-#control-panel {
-	vertical-align: top;
-	display: inline-block;
-	height: calc(var(--width) * var(--percentage));
-	background-color: gray;
-	width: calc(var(--main-width) - (var(--width) * var(--percentage)));
-}
+
 
 form {
 	padding: 20px;
@@ -24,17 +21,21 @@ form {
 
 input,
 select {
+	font-family: 'Roboto', sans-serif;
 	display: block;
 	width: calc(100%);
 	padding: 10px;
 	margin: 10px 0px;
 	border: 0px;
+	font-size: 1em;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
 .custom-file-upload {
+	font-size: 1em;
+	font-family: 'Roboto', sans-serif;
 	background-color: white;
 	display: block;
 	width: calc(100% - 20px);
@@ -43,9 +44,12 @@ select {
 }
 
 a.button {
-	color: black;
-	background-color: #cecece;
+	font-family: 'Roboto', sans-serif;
+	text-decoration: none;
+	color: #142d4c;
+	background-color: #9fd3c7;
 	display: block;
+	font-weight: bold;
 	width: calc(100% - 60px);
 	border-radius: 5px;
 	padding: 10px;
@@ -60,16 +64,8 @@ input[type="file"] {
 #results {
 	display: inline-block;
 	background-color: red;
-	width: calc(var(--width) * var(--percentage));
 }
 
-
-#main {
-	background-color: black;
-	width: 1920px;
-	height: 1920px;
-	zoom: 40%;
-}
 
 #header {
 	color: white;

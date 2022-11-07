@@ -5,6 +5,7 @@ import {InputsForm} from "./InputsForm"
 import {calculateTz} from "./timeHelpers"
 import {TimesPanel} from "./TimesPanel"
 import {DownloadButton} from "./DownloadButton"
+import {DateTime} from "luxon";
 
 
 export default function App() {
@@ -14,9 +15,12 @@ export default function App() {
 
     const [image, setImage] = useState('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=')
     const [data, setData] = useState(new Array());
+    const [inputDate, setInputDate] = useState('')
     const [thumbnail, setThumbnail] = useState("#");
-    const updateSettings = (inputDate) => {
-        const sortedTimes = calculateTz(inputDate);
+    const updateSettings = (setDate) => {
+        const sortedTimes = calculateTz(setDate);
+        setInputDate(setDate.setLocale('es').toLocaleString(DateTime.DATE_FULL))
+        console.log(setDate.setLocale('es').toLocaleString(DateTime.TIME_SIMPLE))
         setData(sortedTimes)
     }
     const updateImage = (image) => {
@@ -25,16 +29,12 @@ export default function App() {
 
     useEffect(() => {
         html2canvas(document.getElementById("main"), {
-            allowTaint: true,
-            useCORS: true,
-            width: width,
-            height: width,
-            scale: 1,
+            allowTaint: true, useCORS: true, width: width, height: width, scale: 1,
         })
             .then(function (canvas) {
                 // It will return a canvas element
                 let tt = canvas.toDataURL("image/png", 0.5);
-                console.log("Set image")
+                // console.log("Set image")
                 setThumbnail(tt)
             })
             .catch((e) => {
@@ -54,10 +54,7 @@ export default function App() {
 
     const thumbnailDisplayStyle = {
 
-        backgroundColor: "black",
-        width: `${width}px`,
-        height: `${width}px`,
-        zoom: `${thumbnailZoom}%`,
+        backgroundColor: "black", width: `${width}px`, height: `${width}px`, zoom: `${thumbnailZoom}%`,
 
     }
 
@@ -73,33 +70,30 @@ export default function App() {
         fontFamily: "'Roboto', sans-serif",
     }
 
-    return (
-        <div style={containerStyle}>
-            <div style={controlPanelStyle}>
-                <InputsForm updateSettings={updateSettings} updateImage={updateImage}/>
-                <DownloadButton thumbnail={thumbnail}/>
-            </div>
-            <div id="results">
-                <div id="main" style={thumbnailDisplayStyle}>
-                    <div id="header">
-                        🔴 EN VIVO
-                    </div>
-                    <div id="cover">
-                        <img id="thumbnail" src={image}/>
-                    </div>
-                    <div id="footer">
-                        <div id="dates"></div>
-                        <TimesPanel data={data}/>
-                    </div>
-                </div>
-
-            </div>
-            <div style={footerPanelStyle}>
-                Please help me make this better <a style={{
-                justifySelf: "center",
-                color: "#ececec"
-            }} href={"https://github.com/fferegrino/timethumbnail"}> GitHub </a>
-            </div>
+    return (<div style={containerStyle}>
+        <div style={controlPanelStyle}>
+            <InputsForm updateSettings={updateSettings} updateImage={updateImage}/>
+            <DownloadButton thumbnail={thumbnail}/>
         </div>
-    )
+        <div id="results">
+            <div id="main" style={thumbnailDisplayStyle}>
+                <div id="header">
+                    🔴 EN VIVO
+                </div>
+                <div id="cover">
+                    <img id="thumbnail" src={image}/>
+                </div>
+                <div id="footer">
+                    <div id="dates">{inputDate}</div>
+                    <TimesPanel data={data}/>
+                </div>
+            </div>
+
+        </div>
+        <div style={footerPanelStyle}>
+            Please help me make this better <a style={{
+            justifySelf: "center", color: "#ececec"
+        }} href={"https://github.com/fferegrino/timethumbnail"}> GitHub </a>
+        </div>
+    </div>)
 }

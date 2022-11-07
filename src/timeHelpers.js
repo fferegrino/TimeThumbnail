@@ -32,7 +32,6 @@ export function calculateTz(inputDate) {
     if (!timesFlags.has(movedDate)) {
       timesFlags.set(movedDate, new Array())
     }
-    console.log(`${tz} ${movedDate}`)
     timesFlags.get(movedDate).push(flag)
   });
 

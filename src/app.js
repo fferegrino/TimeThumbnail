@@ -70,30 +70,35 @@ export default function App() {
         fontFamily: "'Roboto', sans-serif",
     }
 
-    return (<div style={containerStyle}>
-        <div style={controlPanelStyle}>
-            <InputsForm updateSettings={updateSettings} updateImage={updateImage}/>
-            <DownloadButton thumbnail={thumbnail}/>
-        </div>
-        <div id="results">
-            <div id="main" style={thumbnailDisplayStyle}>
-                <div id="header">
-                    🔴 EN VIVO
-                </div>
-                <div id="cover">
-                    <img id="thumbnail" src={image}/>
-                </div>
-                <div id="footer">
-                    <div id="dates">{inputDate}</div>
-                    <TimesPanel data={data}/>
-                </div>
-            </div>
+    return (
+        <h1 class="text-3xl font-bold underline">
+        Hello world!
+      </h1>)
 
-        </div>
-        <div style={footerPanelStyle}>
-            Please help me make this better <a style={{
-            justifySelf: "center", color: "#ececec"
-        }} href={"https://github.com/fferegrino/timethumbnail"}> GitHub </a>
-        </div>
-    </div>)
+    // return (<div style={containerStyle}>
+    //     <div style={controlPanelStyle}>
+    //         <InputsForm updateSettings={updateSettings} updateImage={updateImage}/>
+    //         <DownloadButton thumbnail={thumbnail}/>
+    //     </div>
+    //     <div id="results">
+    //         <div id="main" style={thumbnailDisplayStyle}>
+    //             <div id="header">
+    //                 🔴 EN VIVO
+    //             </div>
+    //             <div id="cover">
+    //                 <img id="thumbnail" src={image}/>
+    //             </div>
+    //             <div id="footer">
+    //                 <div id="dates">{inputDate}</div>
+    //                 <TimesPanel data={data}/>
+    //             </div>
+    //         </div>
+
+    //     </div>
+    //     <div style={footerPanelStyle}>
+    //         Please help me make this better <a style={{
+    //         justifySelf: "center", color: "#ececec"
+    //     }} href={"https://github.com/fferegrino/timethumbnail"}> GitHub </a>
+    //     </div>
+    // </div>)
 }
